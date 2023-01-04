@@ -11,12 +11,11 @@
     :icon-anchor="forecastIconAnchor"
     >
       <div
-        class="dataDiv"
+        class="infoBubble"
         :style="itemStyle"
         >
-        <span>{{ item.data.intensity.forecast }}</span>
+        <div class="forecastValue">{{ item.data.intensity.forecast }}</div>
       </div>
-      <div class="arrow" :style="{borderTopColor:  itemStyle.backgroundColor}"></div>
     </l-icon>
     <!-- generation mix table -->
     <l-popup v-if="item.data.generationmix">
@@ -46,9 +45,9 @@ export default {
       tooltipOptions: {
         direction: 'bottom',
         opacity: 1,
-        offset: [3, 3]
+        offset: [0, 46]
       },
-      forecastIconAnchor: [15, 37]
+      forecastIconAnchor: [20, 0]
     }
   },
   computed: {
@@ -62,12 +61,12 @@ export default {
         style.backgroundColor = 'green'
         style.color = 'white'
       } else if (intensity <= 150) {
-        style.backgroundColor = 'lime'
+        style.backgroundColor = 'greenyellow'
         style.color = 'black'
       } else if (intensity <= 250) {
-        style.backgroundColor = 'yellow'
+        style.backgroundColor = 'khaki'
       } else if (intensity <= 700) {
-        style.backgroundColor = 'red'
+        style.backgroundColor = 'chocolate'
         style.color = 'white'
       } else {
         style.backgroundColor = 'darkred'
@@ -81,35 +80,19 @@ export default {
 </script>
 
 <style scoped>
-.dataDiv {
-  width:  30px;
-  height: 30px;
-  background-color: white;
-  font-weight: bold;
-  display:  flex;
-  flex-direction: column;
-  justify-content: center;
-  border-width:  2px;
-  border-style:  solid;
-  border-radius: 50%;
-  z-index: 2;
-  position: relative;
+.infoBubble {
+  width:20px;
+  height:20px;
+  padding:10px;
+  -moz-transform:rotate(45deg);
+  -webkit-transform:rotate(45deg);
+  border-radius:30px;
+  border-bottom-right-radius:0;
 }
-/* classic css arrow trick */
-.arrow {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-top-width: 10px;
-  border-top-style: solid;
-  border-bottom: 10px solid transparent;
-  right: 50%;
-  bottom: -39px;
-  z-index: 1;
+
+.infoBubble .forecastValue {
+  -moz-transform:rotate(-45deg);
+  -webkit-transform:rotate(-45deg);
 }
+
 </style>

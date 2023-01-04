@@ -19,7 +19,7 @@
             <tr
               v-for="data in sortedPositiveData"
               :key="data.fuel"
-              :style="rowStyle(data.perc)"
+              :style="rowStyle(data.fuel)"
               >
               <td>{{ data.fuel }}</td>
               <td>{{ data.perc }}</td>
@@ -52,26 +52,41 @@ export default {
     }
   },
   methods: {
-    rowStyle (perc) {
-      const style = {
-        backgroundColor: 'gray',
-        color: 'white'
+    rowStyle (fuel) {
+      let backgroundColor, color
+      switch (fuel) {
+        case "wind":
+          backgroundColor = 'lightcyan'
+          color = 'black'
+          break;
+        case "hydro":
+          backgroundColor = 'aquamarine'
+          color = 'black'
+          break;
+        case "gas":
+          backgroundColor = 'crimson'
+          color = 'white'
+          break;
+        case "nuclear":
+          backgroundColor = 'yellowgreen'
+          color = 'black'
+          break;
+        case "imports":
+          backgroundColor = 'tomato'
+          color = 'white'
+          break;
+        case "biomass":
+          backgroundColor = 'teal'
+          color = 'white'
+          break;
+        default:
+          backgroundColor = 'lightslategrey'
+          color = 'white'
+          break;
       }
-      // just a proof of concept
-      if (perc > 40) {
-        style.backgroundColor = 'darkred'
-      } else if (perc > 30) {
-        style.backgroundColor = 'red'
-      } else if (perc > 20) {
-        style.backgroundColor = 'yellow'
-        style.color = 'black'
-      } else if (perc > 10) {
-        style.backgroundColor = 'lime'
-        style.color = 'black'
-      } else if (perc > 0) {
-        style.backgroundColor = 'green'
+      return {
+        backgroundColor, color
       }
-      return style
     }
   }
 }
@@ -91,7 +106,7 @@ export default {
   text-align: center;
   tr {
     &:first-of-type {
-      background-color: #a9dcd6;
+      background-color: gainsboro;
       color: #232323;
     }
     th, td {
